@@ -13,8 +13,6 @@
 
 namespace BeSimple\SoapCommon;
 
-use BeSimple\SoapCommon\SoapResponse;
-
 /**
  * SOAP response filter interface.
  *
@@ -27,6 +25,7 @@ interface SoapResponseFilter
      *
      * @param SoapResponse $response SOAP response
      * @param int $attachmentType = SoapOptions::SOAP_ATTACHMENTS_TYPE_SWA|SoapOptions::ATTACHMENTS_TYPE_MTOM|SoapOptions::ATTACHMENTS_TYPE_BASE64
+     * @return SoapResponse
      */
     public function filterResponse(SoapResponse $response, $attachmentType);
 }

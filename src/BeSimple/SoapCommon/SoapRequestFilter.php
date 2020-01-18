@@ -25,6 +25,7 @@ interface SoapRequestFilter
      *
      * @param SoapRequest $request SOAP request
      * @param int $attachmentType = SoapOptions::SOAP_ATTACHMENTS_TYPE_SWA|SoapOptions::ATTACHMENTS_TYPE_MTOM|SoapOptions::ATTACHMENTS_TYPE_BASE64
+     * @return SoapRequest
      */
     public function filterRequest(SoapRequest $request, $attachmentType);
 }

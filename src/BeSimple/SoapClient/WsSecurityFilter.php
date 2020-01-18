@@ -16,6 +16,7 @@ use ass\XmlSecurity\DSig as XmlSecurityDSig;
 use ass\XmlSecurity\Enc as XmlSecurityEnc;
 use BeSimple\SoapCommon\FilterHelper;
 use BeSimple\SoapCommon\Helper;
+use BeSimple\SoapCommon\SoapRequest;
 use BeSimple\SoapCommon\SoapRequest as CommonSoapRequest;
 use BeSimple\SoapCommon\SoapRequestFilter;
 use BeSimple\SoapCommon\SoapResponse as CommonSoapResponse;
@@ -105,8 +106,7 @@ class WsSecurityFilter extends WsSecurityFilterClientServer implements SoapReque
      *
      * @param \BeSimple\SoapCommon\SoapRequest $request SOAP request
      * @param int $attachmentType
-     *
-     * @return void
+     * @return SoapRequest
      */
     public function filterRequest(CommonSoapRequest $request, $attachmentType)
     {
@@ -221,6 +221,8 @@ class WsSecurityFilter extends WsSecurityFilterClientServer implements SoapReque
                 }
             }
         }
+
+        return $request;
     }
 
     /**
@@ -228,8 +230,7 @@ class WsSecurityFilter extends WsSecurityFilterClientServer implements SoapReque
      *
      * @param \BeSimple\SoapCommon\SoapResponse $response SOAP response
      * @param int $attachmentType
-     *
-     * @return void
+     * @return \BeSimple\SoapCommon\SoapResponse
      */
     public function filterResponse(CommonSoapResponse $response, $attachmentType)
     {
@@ -271,5 +272,7 @@ class WsSecurityFilter extends WsSecurityFilterClientServer implements SoapReque
 
             $security->parentNode->removeChild($security);
         }
+
+        return $response;
     }
 }

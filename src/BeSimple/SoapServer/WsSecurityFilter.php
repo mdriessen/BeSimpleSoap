@@ -68,8 +68,7 @@ class WsSecurityFilter extends WsSecurityFilterClientServer implements SoapReque
      *
      * @param \BeSimple\SoapCommon\SoapRequest $request SOAP request
      * @param int $attachmentType
-     *
-     * @return void
+     * @return CommonSoapRequest
      */
     public function filterRequest(CommonSoapRequest $request, $attachmentType)
     {
@@ -147,6 +146,8 @@ class WsSecurityFilter extends WsSecurityFilterClientServer implements SoapReque
 
             $security->parentNode->removeChild($security);
         }
+
+        return $request;
     }
 
     /**
@@ -154,8 +155,7 @@ class WsSecurityFilter extends WsSecurityFilterClientServer implements SoapReque
      *
      * @param \BeSimple\SoapCommon\SoapResponse $response SOAP response
      * @param int $attachmentType
-     *
-     * @return void
+     * @return CommonSoapResponse
      */
     public function filterResponse(CommonSoapResponse $response, $attachmentType)
     {
@@ -238,5 +238,7 @@ class WsSecurityFilter extends WsSecurityFilterClientServer implements SoapReque
                 }
             }
         }
+
+        return $response;
     }
 }

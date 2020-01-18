@@ -14,6 +14,7 @@ namespace BeSimple\SoapClient;
 
 use BeSimple\SoapCommon\FilterHelper;
 use BeSimple\SoapCommon\Helper;
+use BeSimple\SoapCommon\SoapRequest;
 use BeSimple\SoapCommon\SoapRequest as CommonSoapRequest;
 use BeSimple\SoapCommon\SoapRequestFilter;
 use BeSimple\SoapCommon\SoapResponse as CommonSoapResponse;
@@ -96,14 +97,14 @@ class WsAddressingFilter implements SoapRequestFilter, SoapResponseFilter
      *
      * @var array
      */
-    protected $referenceParametersSet;
+    protected $referenceParametersSet = [];
 
     /**
      * List of reference parameters recieved with this soap message.
      *
      * @var array
      */
-    protected $referenceParametersRecieved;
+    protected $referenceParametersRecieved = [];
 
     /**
      * RelatesTo.
@@ -255,9 +256,8 @@ class WsAddressingFilter implements SoapRequestFilter, SoapResponseFilter
     /**
      * Modify the given request XML.
      *
-     * @param \BeSimple\SoapCommon\SoapRequest $request SOAP request
-     *
-     * @return void
+     * @param \BeSimple\SoapCommon\SoapRequest $request SOAP requese
+     * @return SoapRequest
      */
     public function filterRequest(CommonSoapRequest $request, $attachmentType)
     {
@@ -319,14 +319,15 @@ class WsAddressingFilter implements SoapRequestFilter, SoapResponseFilter
             $filterHelper->setAttribute($parameter, Helper::NS_WSA, 'IsReferenceParameter', 'true');
             $filterHelper->addHeaderElement($parameter);
         }
+
+        return $request;
     }
 
     /**
      * Modify the given response XML.
      *
      * @param \BeSimple\SoapCommon\SoapResponse $response SOAP response
-     *
-     * @return void
+     * @return \BeSimple\SoapCommon\SoapResponse
      */
     public function filterResponse(CommonSoapResponse $response, $attachmentType)
     {
@@ -343,5 +344,7 @@ class WsAddressingFilter implements SoapRequestFilter, SoapResponseFilter
                 $this->referenceParametersRecieved[$childNode->namespaceURI][$childNode->localName] = $childNode->nodeValue;
             }
         }
+
+        return $response;
     }
 }
