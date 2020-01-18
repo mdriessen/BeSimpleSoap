@@ -149,7 +149,7 @@ class SoapClient extends \SoapClient
                 $soapRequest->setAttachments(PartFactory::createAttachmentParts($soapAttachments));
                 $soapRequest = SoapKernel::filterRequest(
                     $soapRequest,
-                    $this->getAttachmentFilters(),
+                    $this->getFilters(),
                     $this->soapOptions->getAttachmentType()
                 );
             } else {
@@ -193,7 +193,7 @@ class SoapClient extends \SoapClient
 
                 return SoapKernel::filterResponse(
                     $soapResponse,
-                    $this->getAttachmentFilters(),
+                    $this->getFilters(),
                     $this->soapOptions->getAttachmentType()
                 );
             }
@@ -274,9 +274,9 @@ class SoapClient extends \SoapClient
         ];
     }
 
-    private function getAttachmentFilters()
+    private function getFilters()
     {
-        $filters = [];
+        $filters = $this->soapOptions->getFilters();
         if ($this->soapOptions->getAttachmentType() !== SoapOptions::SOAP_ATTACHMENTS_TYPE_BASE64) {
             $filters[] = new MimeFilter();
         }

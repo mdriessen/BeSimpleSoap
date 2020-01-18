@@ -15,7 +15,6 @@ class SoapOptions
     const SOAP_CONNECTION_KEEP_ALIVE_ON = true;
     const SOAP_CONNECTION_KEEP_ALIVE_OFF = false;
     const SOAP_ENCODING_UTF8 = 'UTF-8';
-    const SOAP_SINGLE_ELEMENT_ARRAYS_OFF = 0;
     const SOAP_CACHE_TYPE_NONE = Cache::TYPE_NONE;
     const SOAP_CACHE_TYPE_DISK = Cache::TYPE_DISK;
     const SOAP_CACHE_TYPE_MEMORY = Cache::TYPE_MEMORY;
@@ -35,6 +34,7 @@ class SoapOptions
     private $classMap;
     private $typeConverterCollection;
     private $attachmentType;
+    private $filters = [];
 
     /**
      * @param int $soapVersion = SoapOptions::SOAP_VERSION_1_1|SoapOptions::SOAP_VERSION_1_2
@@ -43,7 +43,7 @@ class SoapOptions
      * @param SoapFeatures $features
      * @param string $wsdlFile
      * @param int $wsdlCacheType = SoapOptions::SOAP_CACHE_TYPE_NONE|SoapOptions::SOAP_CACHE_TYPE_MEMORY|SoapOptions::SOAP_CACHE_TYPE_DISK|SoapOptions::SOAP_CACHE_TYPE_DISK_MEMORY
-     * @param string|null $wsdlCacheDir = null
+     * @param string|null $wsdlCacheDir
      * @param ClassMap $classMap
      * @param TypeConverterCollection $typeConverterCollection
      * @param int|null $attachmentType = SoapOptions::SOAP_ATTACHMENTS_OFF|SoapOptions::SOAP_ATTACHMENTS_TYPE_SWA|SoapOptions::ATTACHMENTS_TYPE_MTOM|SoapOptions::ATTACHMENTS_TYPE_BASE64
@@ -55,7 +55,7 @@ class SoapOptions
         SoapFeatures $features,
         $wsdlFile,
         $wsdlCacheType,
-        $wsdlCacheDir = null,
+        $wsdlCacheDir,
         ClassMap $classMap,
         TypeConverterCollection $typeConverterCollection,
         $attachmentType = null
@@ -135,6 +135,16 @@ class SoapOptions
     public function getTypeConverterCollection()
     {
         return $this->typeConverterCollection;
+    }
+
+    public function addFilter($filter)
+    {
+        $this->filters[] = $filter;
+    }
+
+    public function getFilters()
+    {
+        return $this->filters;
     }
 
     public function toArray()
