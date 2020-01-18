@@ -92,7 +92,8 @@ class SoapServer extends \SoapServer
             $requestContentType,
             $requestContent
         );
-        if ($this->soapOptions->hasAttachments()) {
+
+        if ($this->soapOptions->hasAttachments() || $this->soapOptions->hasFilters()) {
             $soapRequest = SoapKernel::filterRequest(
                 $soapRequest,
                 $this->getFilters(),
@@ -188,7 +189,8 @@ class SoapServer extends \SoapServer
             $soapVersion,
             $attachments
         );
-        if ($this->soapOptions->hasAttachments()) {
+
+        if ($this->soapOptions->hasAttachments() || $this->soapOptions->hasFilters()) {
             $soapResponse = SoapKernel::filterResponse(
                 $soapResponse,
                 $this->getFilters(),

@@ -157,6 +157,12 @@ class SoapClient extends \SoapClient
                     'Non SWA SoapClient cannot handle SOAP action '.$action.' with attachments: '.implode(', ', $soapAttachmentList->getSoapAttachmentIds())
                 );
             }
+        } elseif ($this->soapOptions->hasFilters()) {
+            $soapRequest = SoapKernel::filterRequest(
+                $soapRequest,
+                $this->getFilters(),
+                $this->soapOptions->getAttachmentType()
+            );
         }
 
         return $soapRequest;
@@ -189,8 +195,8 @@ class SoapClient extends \SoapClient
                 $curlResponse,
                 $soapResponseTracingData
             );
-            if ($this->soapOptions->hasAttachments()) {
 
+            if ($this->soapOptions->hasAttachments() || $this->soapOptions->hasFilters()) {
                 return SoapKernel::filterResponse(
                     $soapResponse,
                     $this->getFilters(),

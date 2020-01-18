@@ -137,14 +137,21 @@ class SoapOptions
         return $this->typeConverterCollection;
     }
 
-    public function addFilter($filter)
+    public function hasFilters()
     {
-        $this->filters[] = $filter;
+        return count($this->filters) > 0;
     }
 
     public function getFilters()
     {
         return $this->filters;
+    }
+
+    public function addFilter($filter)
+    {
+        $this->filters[] = $filter;
+
+        return $this;
     }
 
     public function toArray()
