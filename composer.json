@@ -37,7 +37,6 @@
         "besimple/soap-wsdl":   "self.version"
     },
     "require-dev": {
-        "ext-mcrypt": "*",
         "mikey179/vfsstream": "~1.0",
         "phpunit/phpunit": "~4.0",
         "phpstan/phpstan": "dev-master",

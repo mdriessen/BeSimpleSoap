@@ -62,7 +62,7 @@ class Helper
     const NS_SOAP_1_1 = 'http://schemas.xmlsoap.org/soap/envelope/';
 
     /**
-     * Soap 1.1 namespace.
+     * Soap 1.2 namespace.
      */
     const NS_SOAP_1_2 = 'http://www.w3.org/2003/05/soap-envelope/';
 
@@ -104,7 +104,7 @@ class Helper
     /**
      * Describing Media Content of Binary Data in XML namespace.
      */
-    const NS_XMLMIME = 'http://www.w3.org/2004/11/xmlmime';
+    const NS_XMLMIME = 'http://www.w3.org/2005/05/xmlmime';
 
     /**
      * XML Schema namespace.
@@ -144,7 +144,7 @@ class Helper
     /**
      * Describing Media Content of Binary Data in XML namespace prefix.
      */
-    const PFX_XMLMIME = 'xmlmime';
+    const PFX_XMLMIME = 'xmime';
 
     /**
      * XML Schema namespace prefix.
