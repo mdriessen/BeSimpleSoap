@@ -327,7 +327,11 @@ abstract class WsSecurityFilterClientServer
             if (Helper::NS_WSS === $key->namespaceURI) {
                 switch ($key->localName) {
                     case 'KeyIdentifier':
-                        return $this->serviceSecurityKey->getPublicKey();
+                        if (null !== $this->serviceSecurityKey) {
+                            return $this->serviceSecurityKey->getPublicKey();
+                        }
+
+                        return null;
                     case 'Reference':
                         $uri = $key->getAttribute('URI');
                         $referencedNode = $this->getReferenceNodeForUri($node, $uri);
