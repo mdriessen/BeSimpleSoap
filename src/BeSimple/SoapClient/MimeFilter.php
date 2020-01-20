@@ -79,11 +79,4 @@ class MimeFilter implements SoapRequestFilter, SoapResponseFilter
 
         return $response;
     }
-
-    private function sanitizePhpExceptionOnHrefs(Part $soapPart)
-    {
-        // convert href -> myhref for external references as PHP throws exception in this case
-        // http://svn.php.net/viewvc/php/php-src/branches/PHP_5_4/ext/soap/php_encoding.c?view=markup#l3436
-        return preg_replace('/href=(?!#)/', 'myhref=', $soapPart->getContent());
-    }
 }

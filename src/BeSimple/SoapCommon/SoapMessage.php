@@ -66,7 +66,7 @@ abstract class SoapMessage
      *
      * @var \BeSimple\SoapCommon\Mime\Part[]
      */
-    protected $attachments;
+    protected $attachments = [];
 
     /**
      * Message content (MIME Message or SOAP Envelope).
@@ -135,7 +135,7 @@ abstract class SoapMessage
 
     public function hasAttachments()
     {
-        return $this->attachments !== null;
+        return count($this->attachments) > 0;
     }
 
     /**

@@ -42,6 +42,8 @@ class XmlMimeFilter implements SoapRequestFilter
             }
         }
 
+        $request->setContent($dom->saveXML());
+
         return $request;
     }
 }

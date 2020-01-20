@@ -320,6 +320,8 @@ class WsAddressingFilter implements SoapRequestFilter, SoapResponseFilter
             $filterHelper->addHeaderElement($parameter);
         }
 
+        $request->setContent($dom->saveXML());
+
         return $request;
     }
 
@@ -344,6 +346,8 @@ class WsAddressingFilter implements SoapRequestFilter, SoapResponseFilter
                 $this->referenceParametersRecieved[$childNode->namespaceURI][$childNode->localName] = $childNode->nodeValue;
             }
         }
+
+        $response->setContent($dom->saveXML());
 
         return $response;
     }

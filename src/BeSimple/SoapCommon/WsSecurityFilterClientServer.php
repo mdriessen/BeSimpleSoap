@@ -16,9 +16,6 @@ use ass\XmlSecurity\DSig as XmlSecurityDSig;
 use ass\XmlSecurity\Enc as XmlSecurityEnc;
 use ass\XmlSecurity\Key as XmlSecurityKey;
 use ass\XmlSecurity\Pem as XmlSecurityPem;
-use BeSimple\SoapCommon\FilterHelper;
-use BeSimple\SoapCommon\Helper;
-use BeSimple\SoapCommon\WsSecurityKey;
 
 /**
  * WS-Security common code for client & server.
@@ -31,6 +28,11 @@ abstract class WsSecurityFilterClientServer
      * The date format to be used with {@link \DateTime}
      */
     const DATETIME_FORMAT = 'Y-m-d\TH:i:s.000\Z';
+
+    /**
+     * The date format to be used with {@link \DateTime}
+     */
+    const DATETIME_INPUT_FORMAT = 'Y-m-d\TH:i:s.u\Z';
 
     /**
      * (X509 3.2.1) Reference to a Subject Key Identifier

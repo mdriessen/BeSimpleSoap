@@ -86,7 +86,7 @@ class WsSecurityFilter extends WsSecurityFilterClientServer implements SoapReque
             $expires = $xpath->query($query, $security)->item(0);
 
             if (null !== $expires) {
-                $expiresDatetime = \DateTime::createFromFormat(self::DATETIME_FORMAT, $expires->textContent, new \DateTimeZone('UTC'));
+                $expiresDatetime = \DateTime::createFromFormat(self::DATETIME_INPUT_FORMAT, $expires->textContent, new \DateTimeZone('UTC'));
                 $currentDatetime = new \DateTime('now', new \DateTimeZone('UTC'));
 
                 if ($currentDatetime > $expiresDatetime) {
@@ -146,6 +146,8 @@ class WsSecurityFilter extends WsSecurityFilterClientServer implements SoapReque
 
             $security->parentNode->removeChild($security);
         }
+
+        $request->setContent($dom->saveXML());
 
         return $request;
     }
@@ -238,6 +240,8 @@ class WsSecurityFilter extends WsSecurityFilterClientServer implements SoapReque
                 }
             }
         }
+
+        $response->setContent($dom->saveXML());
 
         return $response;
     }

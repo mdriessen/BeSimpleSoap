@@ -222,6 +222,8 @@ class WsSecurityFilter extends WsSecurityFilterClientServer implements SoapReque
             }
         }
 
+        $request->setContent($dom->saveXML());
+
         return $request;
     }
 
@@ -272,6 +274,8 @@ class WsSecurityFilter extends WsSecurityFilterClientServer implements SoapReque
 
             $security->parentNode->removeChild($security);
         }
+
+        $response->setContent($dom->saveXML());
 
         return $response;
     }

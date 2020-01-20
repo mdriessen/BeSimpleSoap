@@ -107,11 +107,8 @@ class SoapServer extends \SoapServer
     public function handleRequest(SoapRequest $soapRequest)
     {
         try {
-
             return $this->handleSoapRequest($soapRequest);
-
         } catch (\SoapFault $fault) {
-
             $this->fault($fault->faultcode, $fault->faultstring, $fault->faultactor, $fault->detail);
 
             return self::SOAP_SERVER_REQUEST_FAILED;

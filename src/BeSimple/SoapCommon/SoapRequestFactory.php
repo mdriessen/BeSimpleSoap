@@ -46,7 +46,6 @@ class SoapRequestFactory
         $version,
         $content = null
     ) {
-
         return self::createWithContentType(
             $location,
             $action,

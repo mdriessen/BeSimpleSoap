@@ -58,6 +58,8 @@ class XmlMimeFilter implements SoapResponseFilter
             }
         }
 
+        $response->setContent($dom->saveXML());
+
         return $response;
     }
 }
