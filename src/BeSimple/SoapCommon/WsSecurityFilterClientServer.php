@@ -347,7 +347,7 @@ abstract class WsSecurityFilterClientServer
 
                             $key = XmlSecurityPem::formatKeyInPemFormat($referencedNode->textContent);
 
-                            return XmlSecurityKey::factory(XmlSecurityKey::RSA_SHA1, $key, false, XmlSecurityKey::TYPE_PUBLIC);
+                            return XmlSecurityKey::factory($algorithm, $key, false, XmlSecurityKey::TYPE_PUBLIC);
                         }
                 }
             }

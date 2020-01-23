@@ -117,6 +117,11 @@ class Helper
     const NS_XML_SCHEMA_INSTANCE = 'http://www.w3.org/2001/XMLSchema-instance';
 
     /**
+     * XML Signature Syntax and Processing (Second Edition) namespace.
+     */
+    const NS_XMLDSIG = 'http://www.w3.org/2000/09/xmldsig#';
+
+    /**
      * XML-binary Optimized Packaging namespace.
      */
     const NS_XOP = 'http://www.w3.org/2004/08/xop/include';

@@ -267,8 +267,8 @@ class WsSecurityFilter extends WsSecurityFilterClientServer implements SoapReque
                     throw new \SoapFault('wsse:FailedCheck', 'The signature or decryption was invalid');
                 }
                 // verify signature
-                if (XmlSecurityDSig::getSecurityKey($signature) !== null) {
-                    if (XmlSecurityDSig::verifyDocumentSignature($signature) !== true) {
+                if (null !== ($securityKey = XmlSecurityDSig::getSecurityKey($signature))) {
+                    if (XmlSecurityDSig::verifyDocumentSignature($signature, $securityKey) !== true) {
                         throw new \SoapFault('wsse:FailedCheck', 'The signature or decryption was invalid');
                     }
                 }
