@@ -114,7 +114,7 @@ class WsAddressingFilter implements SoapRequestFilter, SoapResponseFilter
     protected $relatesTo;
 
     /**
-     * RelatesTo@RelationshipType.
+     * RelatesToRelationshipType.
      *
      * @var string
      */

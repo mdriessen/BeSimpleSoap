@@ -24,8 +24,8 @@
     ],
     "require": {
         "php": ">=7.2",
-        "ext-soap": "*",
         "ext-curl": "*",
+        "ext-soap": "*",
         "ass/xmlsecurity": "~1.0",
         "laminas/laminas-mime": "^2.7"
     },

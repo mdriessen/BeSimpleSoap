@@ -20,7 +20,6 @@ use BeSimple\SoapClient\Curl\CurlResponse;
 use BeSimple\SoapClient\SoapOptions\SoapClientOptions;
 use BeSimple\SoapCommon\Fault\SoapFaultEnum;
 use BeSimple\SoapCommon\Fault\SoapFaultParser;
-use BeSimple\SoapCommon\Fault\SoapFaultPrefixEnum;
 use BeSimple\SoapCommon\Fault\SoapFaultSourceGetter;
 use BeSimple\SoapCommon\Mime\PartFactory;
 use BeSimple\SoapCommon\SoapKernel;

@@ -114,7 +114,7 @@ class WsAddressingFilter implements SoapRequestFilter, SoapResponseFilter
     protected $relatesTo;
 
     /**
-     * RelatesTo@RelationshipType.
+     * RelatesToRelationshipType.
      *
      * @var string
      */
@@ -265,24 +265,6 @@ class WsAddressingFilter implements SoapRequestFilter, SoapResponseFilter
         // get \DOMDocument from SOAP request
         $dom = $request->getContentDocument();
 
-        $to = $dom->getElementsByTagNameNS(Helper::NS_WSA, 'To')->item(0);
-        if (null !== $to) {
-            $this->referenceParametersRecieved['To'] = $to->nodeValue;
-        }
-
-        $from = $dom->getElementsByTagNameNS(Helper::NS_WSA, 'From')->item(0);
-        if (null !== $from) {
-            $address = $from->getElementsByTagNameNS(Helper::NS_WSA, 'Address')->item(0);
-            if (null !== $address) {
-                $this->referenceParametersRecieved['From'] = $address->nodeValue;
-            }
-        }
-
-        $messageID = $dom->getElementsByTagNameNS(Helper::NS_WSA, 'MessageID')->item(0);
-        if (null !== $messageID) {
-            $this->referenceParametersRecieved['MessageID'] = $messageID->nodeValue;
-        }
-
         $this->referenceParametersRecieved = array();
         $referenceParameters = $dom->getElementsByTagNameNS(Helper::NS_WSA, 'ReferenceParameters')->item(0);
         if (null !== $referenceParameters) {
@@ -309,11 +291,6 @@ class WsAddressingFilter implements SoapRequestFilter, SoapResponseFilter
     {
         // get \DOMDocument from SOAP response
         $dom = $response->getContentDocument();
-
-        if (null === $this->relatesTo && !empty($this->referenceParametersRecieved['MessageID'])) {
-            $this->relatesTo = $this->referenceParametersRecieved['MessageID'];
-            $this->relatesToRelationshipType = self::RELATIONSHIP_TYPE_REPLY;
-        }
 
         // create FilterHelper
         $filterHelper = new FilterHelper($dom);
