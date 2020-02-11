@@ -1,5 +1,5 @@
 {
-    "name": "tuscanicz/soap",
+    "name": "pronexus/soap",
     "type": "library",
     "description": "A largely refactored besimple/soap used to build SOAP and WSDL based web services. This fork fixes a lot of errors and provides better API, robust, stable and modern codebase.",
     "keywords": ["soap", "soap server", "soap client"],
@@ -56,11 +56,5 @@
         "branch-alias": {
             "dev-master": "0.4-dev"
         }
-    },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/tuscanicz/phpstan.git"
-        }
-    ]
+    }
 }
