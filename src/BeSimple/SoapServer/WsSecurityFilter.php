@@ -14,7 +14,6 @@ namespace BeSimple\SoapServer;
 
 use ass\XmlSecurity\DSig as XmlSecurityDSig;
 use ass\XmlSecurity\Enc as XmlSecurityEnc;
-use ass\XmlSecurity\Key;
 use BeSimple\SoapCommon\FilterHelper;
 use BeSimple\SoapCommon\Helper;
 use BeSimple\SoapCommon\SoapRequest as CommonSoapRequest;
@@ -44,13 +43,6 @@ class WsSecurityFilter extends WsSecurityFilterClientServer implements SoapReque
     protected $usernamePasswordCallback;
 
     /**
-     * Security public key or null.
-     *
-     * @var Key|null
-     */
-    protected $securityKey;
-
-    /**
      * Set username/password callback that returns password or null.
      *
      * @param callable $callback Username/password callback function
@@ -58,16 +50,6 @@ class WsSecurityFilter extends WsSecurityFilterClientServer implements SoapReque
     public function setUsernamePasswordCallback($callback)
     {
         $this->usernamePasswordCallback = $callback;
-    }
-
-    /**
-     * Get security public key or null.
-     *
-     * @param Key|null Security public key or null.
-     */
-    public function getSecurityKey()
-    {
-        return $this->securityKey;
     }
 
     /**
@@ -155,7 +137,6 @@ class WsSecurityFilter extends WsSecurityFilterClientServer implements SoapReque
                 }
                 // verify signature
                 if (null !== ($securityKey = XmlSecurityDSig::getSecurityKey($signature))) {
-                    $this->securityKey = $securityKey;
                     if (XmlSecurityDSig::verifyDocumentSignature($signature, $securityKey) !== true) {
                         throw new \SoapFault('wsse:FailedCheck', 'The signature or decryption was invalid');
                     }
