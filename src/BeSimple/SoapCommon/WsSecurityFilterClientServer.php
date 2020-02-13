@@ -331,7 +331,9 @@ abstract class WsSecurityFilterClientServer
                             return $this->serviceSecurityKey->getPublicKey();
                         }
 
-                        return null;
+                        $key = XmlSecurityPem::formatKeyInPemFormat($key->textContent);
+
+                        return XmlSecurityKey::factory($algorithm, $key, false, XmlSecurityKey::TYPE_PUBLIC);
                     case 'Reference':
                         $uri = $key->getAttribute('URI');
                         $referencedNode = $this->getReferenceNodeForUri($node, $uri);
