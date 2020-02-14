@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8abfa82fa470127868b6803bf0f8b8a9",
+    "content-hash": "c4a27ba132eb998c7dd7823cd23a7a2a",
     "packages": [
         {
             "name": "ass/xmlsecurity",
-            "version": "v1.1.1",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/aschamberger/XmlSecurity.git",
-                "reference": "c8976519ebbf6e4d953cd781d09df44b7f65fbb8"
+                "url": "https://github.com/mdriessen/XmlSecurity.git",
+                "reference": "2ce5e61846cfaa6f623e208c8810e7bb029a0244"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aschamberger/XmlSecurity/zipball/c8976519ebbf6e4d953cd781d09df44b7f65fbb8",
-                "reference": "c8976519ebbf6e4d953cd781d09df44b7f65fbb8",
+                "url": "https://api.github.com/repos/mdriessen/XmlSecurity/zipball/2ce5e61846cfaa6f623e208c8810e7bb029a0244",
+                "reference": "2ce5e61846cfaa6f623e208c8810e7bb029a0244",
                 "shasum": ""
             },
             "require": {
@@ -42,7 +42,6 @@
                     "ass\\XmlSecurity": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -64,7 +63,11 @@
                 "signature",
                 "xml"
             ],
-            "time": "2015-05-31T10:10:35+00:00"
+            "support": {
+                "issues": "https://github.com/aschamberger/XmlSecurity/issues",
+                "source": "https://github.com/aschamberger/XmlSecurity"
+            },
+            "time": "2020-02-13T20:45:02+00:00"
         },
         {
             "name": "laminas/laminas-mime",
@@ -686,12 +689,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "0c617d335cf43e310712b7905f2aa4f917161ef1"
+                "reference": "64a79c35aa7aa1c2c0ebbf0435b9902c7f5b36ba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/0c617d335cf43e310712b7905f2aa4f917161ef1",
-                "reference": "0c617d335cf43e310712b7905f2aa4f917161ef1",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/64a79c35aa7aa1c2c0ebbf0435b9902c7f5b36ba",
+                "reference": "64a79c35aa7aa1c2c0ebbf0435b9902c7f5b36ba",
                 "shasum": ""
             },
             "require": {
@@ -717,7 +720,7 @@
                 "MIT"
             ],
             "description": "PHPStan - PHP Static Analysis Tool",
-            "time": "2020-02-11T09:01:21+00:00"
+            "time": "2020-02-13T20:24:28+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -1521,16 +1524,16 @@
         },
         {
             "name": "symfony/polyfill-ctype",
-            "version": "v1.13.1",
+            "version": "v1.14.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-ctype.git",
-                "reference": "f8f0b461be3385e56d6de3dbb5a0df24c0c275e3"
+                "reference": "fbdeaec0df06cf3d51c93de80c7eb76e271f5a38"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/f8f0b461be3385e56d6de3dbb5a0df24c0c275e3",
-                "reference": "f8f0b461be3385e56d6de3dbb5a0df24c0c275e3",
+                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/fbdeaec0df06cf3d51c93de80c7eb76e271f5a38",
+                "reference": "fbdeaec0df06cf3d51c93de80c7eb76e271f5a38",
                 "shasum": ""
             },
             "require": {
@@ -1542,7 +1545,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.13-dev"
+                    "dev-master": "1.14-dev"
                 }
             },
             "autoload": {
@@ -1575,7 +1578,7 @@
                 "polyfill",
                 "portable"
             ],
-            "time": "2019-11-27T13:56:44+00:00"
+            "time": "2020-01-13T11:15:53+00:00"
         },
         {
             "name": "symfony/yaml",
@@ -1688,6 +1691,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "ass/xmlsecurity": 20,
         "phpstan/phpstan": 20
     },
     "prefer-stable": false,

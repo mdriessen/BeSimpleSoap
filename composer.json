@@ -26,7 +26,7 @@
         "php": ">=7.2",
         "ext-curl": "*",
         "ext-soap": "*",
-        "ass/xmlsecurity": "~1.0",
+        "ass/xmlsecurity": "dev-master",
         "laminas/laminas-mime": "^2.7"
     },
     "replace": {
@@ -52,6 +52,12 @@
             "": "tests/"
         }
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/mdriessen/XmlSecurity"
+        }
+    ],
     "extra": {
         "branch-alias": {
             "dev-master": "0.4-dev"
