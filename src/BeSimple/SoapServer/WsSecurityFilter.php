@@ -210,12 +210,14 @@ class WsSecurityFilter extends WsSecurityFilterClientServer implements SoapReque
             }
             XmlSecurityDSig::signDocument($signature, $this->userSecurityKey->getPrivateKey(), XmlSecurityDSig::EXC_C14N);
 
-            $publicCertificate = $this->userSecurityKey->getPublicKey()->getX509Certificate(true);
-            $binarySecurityToken = $filterHelper->createElement(Helper::NS_WSS, 'BinarySecurityToken', $publicCertificate);
-            $filterHelper->setAttribute($binarySecurityToken, null, 'EncodingType', Helper::NAME_WSS_SMS . '#Base64Binary');
-            $filterHelper->setAttribute($binarySecurityToken, null, 'ValueType', Helper::NAME_WSS_X509 . '#X509v3');
-            $filterHelper->setAttribute($binarySecurityToken, Helper::NS_WSU, 'Id', $guid);
-            $security->insertBefore($binarySecurityToken, $signature);
+            if (self::TOKEN_REFERENCE_SECURITY_TOKEN === $this->tokenReferenceSignature) {
+                $publicCertificate = $this->userSecurityKey->getPublicKey()->getX509Certificate(true);
+                $binarySecurityToken = $filterHelper->createElement(Helper::NS_WSS, 'BinarySecurityToken', $publicCertificate);
+                $filterHelper->setAttribute($binarySecurityToken, null, 'EncodingType', Helper::NAME_WSS_SMS . '#Base64Binary');
+                $filterHelper->setAttribute($binarySecurityToken, null, 'ValueType', Helper::NAME_WSS_X509 . '#X509v3');
+                $filterHelper->setAttribute($binarySecurityToken, Helper::NS_WSU, 'Id', $guid);
+                $security->insertBefore($binarySecurityToken, $signature);
+            }
 
             // encrypt soap document
             if (null !== $this->serviceSecurityKey && $this->serviceSecurityKey->hasKeys()) {

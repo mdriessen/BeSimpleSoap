@@ -50,6 +50,11 @@ abstract class WsSecurityFilterClientServer
     const TOKEN_REFERENCE_THUMBPRINT_SHA1 = 2;
 
     /**
+     * (X509 3.2.1) Reference to a Key Identifier
+     */
+    const TOKEN_REFERENCE_KEY_IDENTIFIER = 3;
+
+    /**
      * Actor.
      *
      * @var string
@@ -217,7 +222,7 @@ abstract class WsSecurityFilterClientServer
                 $filterHelper->setAttribute($reference, null, 'ValueType', Helper::NAME_WSS_X509 . '#X509v3');
             }
             $securityTokenReference->appendChild($reference);
-        // subject key identifier
+            // subject key identifier
         } elseif (self::TOKEN_REFERENCE_SUBJECT_KEY_IDENTIFIER === $tokenReference && null !== $xmlSecurityKey) {
             $keyIdentifier = $filterHelper->createElement(Helper::NS_WSS, 'KeyIdentifier');
             $filterHelper->setAttribute($keyIdentifier, null, 'EncodingType', Helper::NAME_WSS_SMS . '#Base64Binary');
@@ -226,7 +231,16 @@ abstract class WsSecurityFilterClientServer
             $certificate = $xmlSecurityKey->getX509SubjectKeyIdentifier();
             $dataNode = new \DOMText($certificate);
             $keyIdentifier->appendChild($dataNode);
-        // thumbprint sha1
+            // key identifier
+        } elseif (self::TOKEN_REFERENCE_KEY_IDENTIFIER === $tokenReference && null !== $xmlSecurityKey) {
+            $keyIdentifier = $filterHelper->createElement(Helper::NS_WSS, 'KeyIdentifier');
+            $filterHelper->setAttribute($keyIdentifier, null, 'EncodingType', Helper::NAME_WSS_SMS . '#Base64Binary');
+            $filterHelper->setAttribute($keyIdentifier, null, 'ValueType', Helper::NAME_WSS_X509 . '#X509v3');
+            $securityTokenReference->appendChild($keyIdentifier);
+            $certificate = $xmlSecurityKey->getX509Certificate(true);
+            $dataNode = new \DOMText($certificate);
+            $keyIdentifier->appendChild($dataNode);
+            // thumbprint sha1
         } elseif (self::TOKEN_REFERENCE_THUMBPRINT_SHA1 === $tokenReference && null !== $xmlSecurityKey) {
             $keyIdentifier = $filterHelper->createElement(Helper::NS_WSS, 'KeyIdentifier');
             $filterHelper->setAttribute($keyIdentifier, null, 'EncodingType', Helper::NAME_WSS_SMS . '#Base64Binary');
@@ -339,13 +353,13 @@ abstract class WsSecurityFilterClientServer
                         $referencedNode = $this->getReferenceNodeForUri($node, $uri);
 
                         if (XmlSecurityEnc::NS_XMLENC === $referencedNode->namespaceURI
-                                && 'EncryptedKey' == $referencedNode->localName) {
+                            && 'EncryptedKey' == $referencedNode->localName) {
                             $key = XmlSecurityEnc::decryptEncryptedKey($referencedNode, $this->userSecurityKey->getPrivateKey());
 
                             return XmlSecurityKey::factory($algorithm, $key, false, XmlSecurityKey::TYPE_PRIVATE);
                         }
                         if (Helper::NS_WSS === $referencedNode->namespaceURI
-                                && 'BinarySecurityToken' == $referencedNode->localName) {
+                            && 'BinarySecurityToken' == $referencedNode->localName) {
 
                             $key = XmlSecurityPem::formatKeyInPemFormat($referencedNode->textContent);
 
