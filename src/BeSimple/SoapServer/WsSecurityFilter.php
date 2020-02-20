@@ -43,6 +43,13 @@ class WsSecurityFilter extends WsSecurityFilterClientServer implements SoapReque
     protected $usernamePasswordCallback;
 
     /**
+     * SignatureConfirmation
+     *
+     * @var string|null
+     */
+    protected $signatureConfirmationValue;
+
+    /**
      * Set username/password callback that returns password or null.
      *
      * @param callable $callback Username/password callback function
@@ -50,6 +57,16 @@ class WsSecurityFilter extends WsSecurityFilterClientServer implements SoapReque
     public function setUsernamePasswordCallback($callback)
     {
         $this->usernamePasswordCallback = $callback;
+    }
+
+    /**
+     * Add SignatureValueConfirmation
+     *
+     * @param string $signatureValue
+     */
+    public function setSignatureConfirmationValue($signatureValue)
+    {
+        $this->signatureConfirmationValue = $signatureValue;
     }
 
     /**
@@ -168,6 +185,7 @@ class WsSecurityFilter extends WsSecurityFilterClientServer implements SoapReque
 
         // add the neccessary namespaces
         $filterHelper->addNamespace(Helper::PFX_WSS, Helper::NS_WSS);
+        $filterHelper->addNamespace(Helper::PFX_WSS_1_1, Helper::NS_WSS_1_1);
         $filterHelper->addNamespace(Helper::PFX_WSU, Helper::NS_WSU);
         $filterHelper->registerNamespace(XmlSecurityDSig::PFX_XMLDSIG, XmlSecurityDSig::NS_XMLDSIG);
 
@@ -179,6 +197,7 @@ class WsSecurityFilter extends WsSecurityFilterClientServer implements SoapReque
         $security = $filterHelper->createElement(Helper::NS_WSS, 'Security');
         $filterHelper->addHeaderElement($security, true, $this->actor, $response->getVersion());
 
+        // add Timestamp
         if (true === $this->addTimestamp || null !== $this->expires) {
             $timestamp = $filterHelper->createElement(Helper::NS_WSU, 'Timestamp');
             $created = $filterHelper->createElement(Helper::NS_WSU, 'Created', $createdTimestamp);
@@ -190,6 +209,15 @@ class WsSecurityFilter extends WsSecurityFilterClientServer implements SoapReque
                 $timestamp->appendChild($expires);
             }
             $security->appendChild($timestamp);
+        }
+
+        // add SignatureConfirmation
+        if (null !== $this->signatureConfirmationValue) {
+            $signatureConfirmation = $filterHelper->createElement(Helper::NS_WSS_1_1, 'SignatureConfirmation');
+            if (!empty($this->signatureConfirmationValue)) {
+                $signatureConfirmation->setAttribute('Value', $this->signatureConfirmationValue);
+            }
+            $security->appendChild($signatureConfirmation);
         }
 
         if (null !== $this->userSecurityKey && $this->userSecurityKey->hasKeys()) {

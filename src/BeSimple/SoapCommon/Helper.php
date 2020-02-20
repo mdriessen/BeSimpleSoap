@@ -97,6 +97,11 @@ class Helper
     const NS_WSS = 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd';
 
     /**
+     * Web Services Security Extension 1.1 namespace.
+     */
+    const NS_WSS_1_1 = 'http://docs.oasis-open.org/wss/oasis-wss-wssecurity-secext-1.1.xsd';
+
+    /**
      * Web Services Security Utility namespace.
      */
     const NS_WSU = 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd';
@@ -140,6 +145,11 @@ class Helper
      * Web Services Security Extension namespace.
      */
     const PFX_WSS = 'wsse';
+
+    /**
+     * Web Services Security Extension 1.1 namespace.
+     */
+    const PFX_WSS_1_1 = 'wsse11';
 
     /**
      * Web Services Security Utility namespace prefix.

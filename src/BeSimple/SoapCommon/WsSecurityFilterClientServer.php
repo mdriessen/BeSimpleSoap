@@ -50,9 +50,9 @@ abstract class WsSecurityFilterClientServer
     const TOKEN_REFERENCE_THUMBPRINT_SHA1 = 2;
 
     /**
-     * (X509 3.2.1) Reference to a Key Identifier
+     * (X.509 WSS4J) Certificate Token
      */
-    const TOKEN_REFERENCE_KEY_IDENTIFIER = 3;
+    const TOKEN_REFERENCE_CERTIFICATE = 3;
 
     /**
      * Actor.
@@ -231,8 +231,8 @@ abstract class WsSecurityFilterClientServer
             $certificate = $xmlSecurityKey->getX509SubjectKeyIdentifier();
             $dataNode = new \DOMText($certificate);
             $keyIdentifier->appendChild($dataNode);
-            // key identifier
-        } elseif (self::TOKEN_REFERENCE_KEY_IDENTIFIER === $tokenReference && null !== $xmlSecurityKey) {
+            // x509 certificate
+        } elseif (self::TOKEN_REFERENCE_CERTIFICATE === $tokenReference && null !== $xmlSecurityKey) {
             $keyIdentifier = $filterHelper->createElement(Helper::NS_WSS, 'KeyIdentifier');
             $filterHelper->setAttribute($keyIdentifier, null, 'EncodingType', Helper::NAME_WSS_SMS . '#Base64Binary');
             $filterHelper->setAttribute($keyIdentifier, null, 'ValueType', Helper::NAME_WSS_X509 . '#X509v3');
