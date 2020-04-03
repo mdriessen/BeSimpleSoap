@@ -79,6 +79,20 @@ class WsAddressingFilter implements SoapRequestFilter, SoapResponseFilter
     protected $faultTo;
 
     /**
+     * Action.
+     *
+     * @var string
+     */
+    protected $action;
+
+    /**
+     * To.
+     *
+     * @var string
+     */
+    protected $to;
+
+    /**
      * From.
      *
      * @var string
@@ -171,6 +185,8 @@ class WsAddressingFilter implements SoapRequestFilter, SoapResponseFilter
     public function resetFilter()
     {
         $this->faultTo                     = null;
+        $this->action                      = null;
+        $this->to                          = null;
         $this->from                        = null;
         $this->messageId                   = null;
         $this->referenceParametersRecieved = array();
@@ -190,6 +206,30 @@ class WsAddressingFilter implements SoapRequestFilter, SoapResponseFilter
     public function setFaultTo($faultTo)
     {
         $this->faultTo = $faultTo;
+    }
+
+    /**
+     * Set Action address of type xs:anyURI.
+     *
+     * @param string $action xs:anyURI
+     *
+     * @return void
+     */
+    public function setAction($action)
+    {
+        $this->action = $action;
+    }
+
+    /**
+     * Set To address of type xs:anyURI.
+     *
+     * @param string $to xs:anyURI
+     *
+     * @return void
+     */
+    public function setTo($to)
+    {
+        $this->to = $to;
     }
 
     /**
@@ -298,10 +338,20 @@ class WsAddressingFilter implements SoapRequestFilter, SoapResponseFilter
         // add the neccessary namespaces
         $filterHelper->addNamespace(Helper::PFX_WSA, Helper::NS_WSA);
 
-        $action = $filterHelper->createElement(Helper::NS_WSA, 'Action', $response->getAction());
+        $actionValue = $response->getAction();
+        if (null !== $this->action) {
+            $actionValue = $this->action;
+        }
+
+        $action = $filterHelper->createElement(Helper::NS_WSA, 'Action', $actionValue);
         $filterHelper->addHeaderElement($action);
 
-        $to = $filterHelper->createElement(Helper::NS_WSA, 'To', $response->getLocation());
+        $toValue = self::ENDPOINT_REFERENCE_ANONYMOUS;
+        if (null !== $this->to) {
+            $toValue = $this->to;
+        }
+
+        $to = $filterHelper->createElement(Helper::NS_WSA, 'To', $toValue);
         $filterHelper->addHeaderElement($to);
 
         if (null !== $this->faultTo) {
