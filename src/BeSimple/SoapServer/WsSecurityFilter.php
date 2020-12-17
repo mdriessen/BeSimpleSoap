@@ -234,7 +234,7 @@ class WsSecurityFilter extends WsSecurityFilterClientServer implements SoapReque
                 'id_prefix_ns' => Helper::NS_WSU,
             );
             foreach ($nodes as $node) {
-                XmlSecurityDSig::addNodeToSignature($signature, $node, XmlSecurityDSig::SHA1, XmlSecurityDSig::EXC_C14N, $options);
+                XmlSecurityDSig::addNodeToSignature($signature, $node, XmlSecurityDSig::SHA256, XmlSecurityDSig::EXC_C14N, $options);
             }
             XmlSecurityDSig::signDocument($signature, $this->userSecurityKey->getPrivateKey(), XmlSecurityDSig::EXC_C14N);
 
